@@ -1,7 +1,7 @@
 package com.clevertec.CheckRunner.interpretations;
 
 import com.clevertec.CheckRunner.models.CashReceipt;
-import com.clevertec.CheckRunner.utils.CashReceiptCalculation;
+import com.clevertec.CheckRunner.utils.TotalCalculation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 @AllArgsConstructor
-public class CashReceiptToString implements CashReceiptToPrint {
+public class CashReceiptToString implements PrintCashReceipt {
 
-//    private final CashReceiptCalculation calculation;
+    private final TotalCalculation calculation;
 
     @Override
     public String printCashReceipt(CashReceipt cashReceipt) {

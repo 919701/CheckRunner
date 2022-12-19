@@ -5,18 +5,16 @@ import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.services.DiscountCardService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
-
-
 @Data
 @AllArgsConstructor
-public class CashReceiptCalculation {
+@Component
+public class TotalCalculation {
 
     private final CashReceipt cashReceipt;
     private final DiscountCardService discountCardService;
-    private Double totalWithoutDiscount;
-    private Double totalWithDiscount;
 
     public Map<Product, Double> coastProducts() {
 
@@ -35,13 +33,14 @@ public class CashReceiptCalculation {
         return coastProducts();
     }
 
-    public void totalCash() {
-        for (Map.Entry<Product, Double> entry : coastProducts().entrySet()) {
-            totalWithoutDiscount += entry.getValue();
-        }
-
-        if (discountCardService.isDiscountCard(cashReceipt.getDiscountCard())) {
-            totalWithDiscount = totalWithoutDiscount * (1 - cashReceipt.getDiscountCard().getDiscountPercent());
-        }
-    }
+//    public void totalCash() {
+//        for (Map.Entry<Product, Double> entry : coastProducts().entrySet()) {
+//            totalWithoutDiscount += entry.getValue();
+//        }
+//
+//        if (discountCardService.isDiscountCard(cashReceipt.getDiscountCard())) {
+//            totalWithDiscount = totalWithoutDiscount * (1 - cashReceipt.getDiscountCard().getDiscountPercent());
+//        }
+//    }
 }
+

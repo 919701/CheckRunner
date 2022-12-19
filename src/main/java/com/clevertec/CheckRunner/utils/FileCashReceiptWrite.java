@@ -1,6 +1,6 @@
 package com.clevertec.CheckRunner.utils;
 
-import com.clevertec.CheckRunner.interpretations.CashReceiptToPrint;
+import com.clevertec.CheckRunner.interpretations.PrintCashReceipt;
 import com.clevertec.CheckRunner.models.CashReceipt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,13 +13,13 @@ import java.io.IOException;
 public class FileCashReceiptWrite implements CashReceiptWrite {
 
     private final ConsoleCashReceiptWrite consoleCashReceiptWrite;
-    private final CashReceiptToPrint cashReceiptToPrint;
+    private final PrintCashReceipt printCashReceipt;
 
     public void write(CashReceipt cashReceipt) {
         try {
             FileWriter fileWriter = new FileWriter("CashReceipt.txt");
             consoleCashReceiptWrite.write(cashReceipt);
-            fileWriter.write(cashReceiptToPrint.printCashReceipt(cashReceipt));
+            fileWriter.write(printCashReceipt.printCashReceipt(cashReceipt));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package com.clevertec.CheckRunner.utils;
 
-import com.clevertec.CheckRunner.interpretations.CashReceiptToPrint;
+import com.clevertec.CheckRunner.interpretations.PrintCashReceipt;
 import com.clevertec.CheckRunner.models.CashReceipt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ConsoleCashReceiptWrite implements CashReceiptWrite {
 
-    private final CashReceiptToPrint cashReceiptToPrint;
+    private final PrintCashReceipt printCashReceipt;
 
     @Override
     public void write(CashReceipt cashReceipt) {
-        System.out.println(cashReceiptToPrint.printCashReceipt(cashReceipt));
+        System.out.println(printCashReceipt.printCashReceipt(cashReceipt));
     }
 }
