@@ -1,0 +1,20 @@
+
+                   CASH RECEIPT
+                  SUPERMARKET 123
+              12. MILKYWAY Galaxy/ Earth
+                Tel: 123-456-70000
+
+Cashier: #1520                               DATE:2022-12-20
+                                               TIME:23:14:56
+DISCOUNT CARD: 1234
+------------------------------------------------------------
+ QTY                 DESCRIPTION          PRICE       TOTAL
+  2   Potato                             $ 5,43      $ 10,86     
+  9   Pumpkin (discount 10%)             $ 2,85      $ 23,09     
+  9   Cabbage                            $ 2,38      $ 21,42     
+  6   Carrot (discount 10%)              $ 3,49      $ 18,85     
+  3   Tomato                             $ 6,36      $ 19,08     
+============================================================
+TAXABLE TOT.                                           93,29
+VAT 5,00 %                                              4,66
+TOTAL                                                  88,63
