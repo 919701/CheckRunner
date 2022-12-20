@@ -1,4 +1,4 @@
-package com.clevertec.CheckRunner.print;
+package com.clevertec.CheckRunner.utils.mapper;
 
 import com.clevertec.CheckRunner.exeption.DiscountCardNotFoundException;
 import com.clevertec.CheckRunner.models.Basket;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Component
 @AllArgsConstructor
-public class BasketToString implements BasketPrint {
+public class BasketToStringImpl implements BasketToString {
 
     private final BasketService basketService;
 
@@ -31,7 +31,7 @@ public class BasketToString implements BasketPrint {
                 "TIME:" + DateTimeFormatter.ofPattern("HH:mm:ss").format(basket.getDateTime()),
                 (basket.getDiscountCard() != null)
                         ? "DISCOUNT CARD: " + basket.getDiscountCard().getNumberCard()
-                        : "DISCOUNT CARD: NO",
+                        : "DISCOUNT CARD: not found",
                 "QTY", "DESCRIPTION", "PRICE", "TOTAL"
         ));
         coast.forEach((product, count) -> check.append(String.format("%3.0f   %-35s" + "$ %-10.2f" + "$ %-10.2f\n",

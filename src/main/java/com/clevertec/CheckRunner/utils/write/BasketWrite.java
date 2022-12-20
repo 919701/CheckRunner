@@ -1,4 +1,4 @@
-package com.clevertec.CheckRunner.utils;
+package com.clevertec.CheckRunner.utils.write;
 
 import com.clevertec.CheckRunner.models.Basket;
 

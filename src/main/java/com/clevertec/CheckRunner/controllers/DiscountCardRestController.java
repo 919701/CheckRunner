@@ -5,10 +5,7 @@ import com.clevertec.CheckRunner.services.DiscountCardService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,13 @@ public class DiscountCardRestController {
         return numberCard != null
                 ? new ResponseEntity<>(numberCard, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{number}")
+    public ResponseEntity<DiscountCard> deleteDiscountCardByNumberCard(@PathVariable Integer number) {
+        final boolean deleted = discountCardService.deleteDiscountCardByNumber(number);
+        return deleted
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

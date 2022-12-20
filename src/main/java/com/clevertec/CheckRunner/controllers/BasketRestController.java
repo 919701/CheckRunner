@@ -1,8 +1,8 @@
 package com.clevertec.CheckRunner.controllers;
 
-import com.clevertec.CheckRunner.print.BasketToString;
 import com.clevertec.CheckRunner.models.Basket;
 import com.clevertec.CheckRunner.services.BasketService;
+import com.clevertec.CheckRunner.utils.mapper.BasketToStringImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +18,10 @@ import java.util.List;
 public class BasketRestController {
 
     private final BasketService basketService;
-    private final BasketToString basketToString;
+    private final BasketToStringImpl basketPrintImpl;
 
     @GetMapping("/json")
-    public ResponseEntity<Basket> jsonCashReceipt(@RequestParam List<String> products,
+    public ResponseEntity<Basket> jsonCashReceipt(@RequestParam(value = "id") List<String> products,
                                                   @RequestParam(value = "card", required = false)
                                                   Integer discountCardNumber) {
 
@@ -29,10 +29,9 @@ public class BasketRestController {
                 .body(basketService.buildBasket(products, discountCardNumber));
     }
 
-    @GetMapping(value = "/text")
-    public String getCheck(@RequestParam List<String> products,
+    @GetMapping("/text")
+    public String getCheck(@RequestParam(value = "id") List<String> products,
                            @RequestParam(value = "card", required = false) Integer discountCardNumber) {
-        return basketToString.printCheck(basketService.buildBasket(products, discountCardNumber));
+        return basketPrintImpl.printCheck(basketService.buildBasket(products, discountCardNumber));
     }
-
 }
