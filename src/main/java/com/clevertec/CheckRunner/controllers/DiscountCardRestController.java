@@ -30,6 +30,20 @@ public class DiscountCardRestController {
                 ? new ResponseEntity<>(numberCard, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @PostMapping()
+    public ResponseEntity<DiscountCard> saveProduct(@RequestBody DiscountCard discountCard) {
+        final boolean save = discountCardService.saveDiscountCard(discountCard);
+        return save
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable(name = "id") Long id, @RequestBody DiscountCard discountCard) {
+        final boolean update = discountCardService.updateDiscountCard(id, discountCard);
+        return update
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 
     @DeleteMapping("/{number}")
     public ResponseEntity<DiscountCard> deleteDiscountCardByNumberCard(@PathVariable Integer number) {
