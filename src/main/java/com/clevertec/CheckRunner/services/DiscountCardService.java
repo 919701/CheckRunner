@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DiscountCardService {
 
-    DiscountCard findByNumberCard(Integer numberCard);
+     DiscountCard findByNumberCard(Integer numberCard);
 
     List<DiscountCard> allDiscountCard();
 
@@ -17,7 +17,5 @@ public interface DiscountCardService {
     Boolean deleteDiscountCardByNumber(Integer numberCard);
 
     Boolean updateDiscountCard(Long id, DiscountCard discountCard);
-
-    Boolean isDiscountCard(DiscountCard discountCard);
 
 }

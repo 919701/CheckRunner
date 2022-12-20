@@ -1,9 +1,11 @@
 package com.clevertec.CheckRunner.services.impl;
 
+import com.clevertec.CheckRunner.exeption.ProductNotFoundException;
 import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.repositories.ProductRepositories;
 import com.clevertec.CheckRunner.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.results.graph.entity.internal.AbstractNonJoinedEntityFetch;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +45,8 @@ public class ProductServiceImpl implements ProductService {
                     updateProduct.setPrice(product.getPrice());
                     updateProduct.setDiscount(product.getDiscount());
                     return updateProduct;
-                }).orElseThrow();
+                }).orElseThrow(() ->
+                        new ProductNotFoundException("Product non found in this id: " + id));
         return true;
     }
 

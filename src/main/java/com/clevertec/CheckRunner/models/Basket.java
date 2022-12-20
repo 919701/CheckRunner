@@ -10,14 +10,12 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 @Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class CashReceipt {
+public class Basket {
 
-    private Long id;
     @Builder.Default
     private Map<Product, Double> products = new HashMap<>();
     private DiscountCard discountCard;
