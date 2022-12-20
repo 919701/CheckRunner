@@ -67,7 +67,7 @@ public class BasketServiceImpl implements BasketService {
 
     public Map<Product, Double> coastProducts(Basket basket) {
         Map<Product, Double> coast = new HashMap<>();
-        final Double DISCOUNT_PERCENT = Double.valueOf(10); //Процент скидки
+        final double DISCOUNT_PERCENT = 10.0; //Процент скидки
 
         //Если в чеке больше пяти шт. аукционных товаров, то скидка 10% по этой позиции
         basket.getProducts().forEach((product, quantity) -> {
@@ -81,10 +81,9 @@ public class BasketServiceImpl implements BasketService {
     }
 
     public Double totalWithoutDiscount(Basket basket) {
-        Double total = Double.valueOf(0);
+        Double total = (double) 0;
         Map<Product, Double> productDoubleMap = coastProducts(basket);
         for (Map.Entry<Product, Double> entry : productDoubleMap.entrySet()) {
-            Product product = entry.getKey();
             Double coast = entry.getValue();
             total += coast;
         }
@@ -94,11 +93,8 @@ public class BasketServiceImpl implements BasketService {
     @SneakyThrows
     public Double totalWithDiscount(Basket basket) {
 
-        Double total = (basket.getDiscountCard() != null)
+        return (basket.getDiscountCard() != null)
                 ? totalWithoutDiscount(basket) * (100 - basket.getDiscountCard().getDiscountPercent()) / 100
                 : totalWithoutDiscount(basket);
-
-        return total;
     }
 }
-

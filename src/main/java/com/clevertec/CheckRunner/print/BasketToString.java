@@ -34,13 +34,11 @@ public class BasketToString implements BasketPrint {
                         : "DISCOUNT CARD: NO",
                 "QTY", "DESCRIPTION", "PRICE", "TOTAL"
         ));
-        coast.forEach((product, count) -> {
-            check.append(String.format("%3.0f   %-35s" + "$ %-10.2f" + "$ %-10.2f\n",
-                    basket.getProducts().get(product),
-                    product.getTitle() + (product.getDiscount() ? " (discount 10%)" : ""),
-                    product.getPrice(),
-                    count));
-        });
+        coast.forEach((product, count) -> check.append(String.format("%3.0f   %-35s" + "$ %-10.2f" + "$ %-10.2f\n",
+                basket.getProducts().get(product),
+                product.getTitle() + (product.getDiscount() ? " (discount 10%)" : ""),
+                product.getPrice(),
+                count)));
 
         check.append(String.format("=".repeat(60) + "\nTAXABLE TOT. %47.2f\nVAT %2.2f %% %49.2f\nTOTAL%55.2f",
                 basketService.totalWithoutDiscount(basket),

@@ -1,3 +1,5 @@
+-- noinspection SqlResolveForFile
+
 insert into discount_card (number_card, discount_percent) values (1234, 5);
 insert into discount_card (number_card, discount_percent) values (9876, 8);
 insert into discount_card (number_card, discount_percent) values (1724, 10);

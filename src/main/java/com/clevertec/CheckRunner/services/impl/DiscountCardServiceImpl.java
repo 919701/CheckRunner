@@ -1,11 +1,9 @@
 package com.clevertec.CheckRunner.services.impl;
 
-import com.clevertec.CheckRunner.exeption.DiscountCardNotFoundException;
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.repositories.DiscountCardRepository;
 import com.clevertec.CheckRunner.services.DiscountCardService;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
