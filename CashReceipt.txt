@@ -4,12 +4,17 @@
               12. MILKYWAY Galaxy/ Earth
                 Tel: 123-456-70000
 
-Cashier: #1520                               DATE:2022-12-22
-                                               TIME:12:41:36
-DISCOUNT CARD: not found
+Cashier: #1520                               DATE:2023-02-18
+                                               TIME:13:38:00
+DISCOUNT CARD: 1234
 ------------------------------------------------------------
  QTY                 DESCRIPTION          PRICE       TOTAL
+  6   Cucumber (discount 10%)            $ 1,48      $ 7,99      
+  2   Potato                             $ 5,43      $ 10,86     
+  5   Carrot (discount 10%)              $ 3,49      $ 17,45     
+  8   Onion                              $ 0,24      $ 1,92      
+ 10   Courgette                          $ 1,85      $ 18,50     
 ============================================================
-TAXABLE TOT.                                            0,00
-VAT 0,00 %                                              0,00
-TOTAL                                                   0,00
+TAXABLE TOT.                                           56,72
+VAT 5,00 %                                              2,84
+TOTAL                                                  53,89
