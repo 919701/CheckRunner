@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
-
 public class DiscountCardServiceImpl implements DiscountCardService {
 
     private final DiscountCardRepository discountCardRepository;
