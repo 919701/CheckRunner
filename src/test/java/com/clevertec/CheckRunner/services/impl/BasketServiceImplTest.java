@@ -11,9 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -70,7 +68,6 @@ class BasketServiceImplTest {
     void coastProducts() {
         String[] args = {"1-2", "card-123"};
         Basket basket = basketService.buildBasket(args);
-        Map<Product, Double> product = basketService.coastProducts(basket);
         verify(productService).findById(anyLong());
     }
 
