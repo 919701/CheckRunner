@@ -7,66 +7,67 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @ExtendWith(MockitoExtension.class)
 class DiscountCardServiceImplTest {
-
     @Mock
-    DiscountCardRepository repository;
-
+    private DiscountCardRepository repository;
     @InjectMocks
-    DiscountCardServiceImpl service;
-    List<DiscountCard> cards = List.of(
-            new DiscountCard(1L, 123, 10d),
-            new DiscountCard(2L, 234, 20d),
-            new DiscountCard(3L, 345, 30d)
+    private DiscountCardServiceImpl service;
+    List<DiscountCard> discountCards = List.of(
+            new DiscountCard(1L, 123, 5.0),
+            new DiscountCard(2L, 234, 10.0),
+            new DiscountCard(3L, 345, 15.0)
     );
 
     @Test
     void findByNumberCard() {
+        when(repository.findByNumberCard(123)).thenReturn(discountCards.get(0));
+        DiscountCard cardTest = service.findByNumberCard(123);
+        assertSame(discountCards.get(0), cardTest);
+        verify(repository).findByNumberCard(anyInt());
     }
 
     @Test
     void allDiscountCard() {
-
+        when(repository.findAll()).thenReturn(discountCards);
+        List<DiscountCard> cardsTest = service.allDiscountCard();
+        assertSame(discountCards, cardsTest);
+        verify(repository).findAll();
     }
 
     @Test
     void findById() {
-//        when(repository.findById(1L)).thenReturn(Optional.ofNullable(cards.get(0)));
-//        assertSame(0, service.findById(1L));
+        when(repository.findById(1L)).thenReturn(Optional.ofNullable(discountCards.get(0)));
+        DiscountCard cardTest = service.findById(1L);
+        assertSame(discountCards.get(0), cardTest);
+        verify(repository).findById(any());
     }
 
     @Test
     void saveDiscountCard() {
-//        when(repository.save(any())).thenThrow(new ResponseStatusException(HttpStatus.CONTINUE));
-//        DiscountCard discountCardTest = DiscountCard.builder()
-//                .id(1L)
-//                .numberCard(123)
-//                .discountPercent(10d)
-//                .build();
-//        assertThrows(ResponseStatusException.class, () -> service.saveDiscountCard(discountCardTest));
-//        verify(repository).save(any());
-
+        assertTrue(service.saveDiscountCard(any()));
+        verify(repository).save(any());
     }
 
     @Test
     void deleteDiscountCardByNumber() {
-        doNothing().when(repository).deleteByNumberCard(any());
-        service.deleteDiscountCardByNumber(123);
-        verify(repository).deleteByNumberCard(anyInt());
+        assertTrue(service.deleteDiscountCardByNumber(any()));
+        verify(repository).deleteByNumberCard(any());
     }
 
     @Test
     void updateDiscountCard() {
+        DiscountCard discountCard = new DiscountCard(123L, 123456, 12.0);
+        when(repository.findById(any())).thenReturn(Optional.of(discountCard));
+        assertDoesNotThrow(()->service.updateDiscountCard(123L,discountCard));
+        verify(repository).findById(any());
     }
 }
