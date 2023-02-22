@@ -18,9 +18,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class DiscountCardServiceImplTest {
     @Mock
-    private DiscountCardRepository repository;
+    private DiscountCardRepository cardRepository;
     @InjectMocks
-    private DiscountCardServiceImpl service;
+    private DiscountCardServiceImpl cardService;
     List<DiscountCard> discountCards = List.of(
             new DiscountCard(1L, 123, 5.0),
             new DiscountCard(2L, 234, 10.0),
@@ -29,46 +29,46 @@ class DiscountCardServiceImplTest {
 
     @Test
     void findByNumberCard() {
-        when(repository.findByNumberCard(123)).thenReturn(discountCards.get(0));
-        DiscountCard cardTest = service.findByNumberCard(123);
+        when(cardRepository.findByNumberCard(123)).thenReturn(discountCards.get(0));
+        DiscountCard cardTest = cardService.findByNumberCard(123);
         assertSame(discountCards.get(0), cardTest);
-        verify(repository).findByNumberCard(anyInt());
+        verify(cardRepository).findByNumberCard(anyInt());
     }
 
     @Test
     void allDiscountCard() {
-        when(repository.findAll()).thenReturn(discountCards);
-        List<DiscountCard> cardsTest = service.allDiscountCard();
+        when(cardRepository.findAll()).thenReturn(discountCards);
+        List<DiscountCard> cardsTest = cardService.allDiscountCard();
         assertSame(discountCards, cardsTest);
-        verify(repository).findAll();
+        verify(cardRepository).findAll();
     }
 
     @Test
     void findById() {
-        when(repository.findById(1L)).thenReturn(Optional.ofNullable(discountCards.get(0)));
-        Optional<DiscountCard> cardTest = service.findById(1L);
+        when(cardRepository.findById(1L)).thenReturn(Optional.ofNullable(discountCards.get(0)));
+        Optional<DiscountCard> cardTest = cardService.findById(1L);
         assertEquals(Optional.ofNullable(discountCards.get(0)), cardTest);
-        verify(repository).findById(any());
+        verify(cardRepository).findById(any());
     }
 
     @Test
     void saveDiscountCard() {
-        assertTrue(service.saveDiscountCard(any()));
-        verify(repository).save(any());
+        assertTrue(cardService.saveDiscountCard(any()));
+        verify(cardRepository).save(any());
     }
 
     @Test
     void deleteDiscountCardByNumber() {
-        doNothing().when(repository).deleteByNumberCard(any());
-        assertTrue(service.deleteDiscountCardByNumber(any()));
-        verify(repository).deleteByNumberCard(any());
+        doNothing().when(cardRepository).deleteByNumberCard(any());
+        assertTrue(cardService.deleteDiscountCardByNumber(any()));
+        verify(cardRepository).deleteByNumberCard(any());
     }
 
     @Test
     void updateDiscountCard() {
         DiscountCard discountCard = new DiscountCard(123L, 123456, 12.0);
-        when(repository.findById(any())).thenReturn(Optional.of(discountCard));
-        assertDoesNotThrow(()->service.updateDiscountCard(123L,discountCard));
-        verify(repository).findById(any());
+        when(cardRepository.findById(any())).thenReturn(Optional.of(discountCard));
+        assertDoesNotThrow(()-> cardService.updateDiscountCard(123L,discountCard));
+        verify(cardRepository).findById(any());
     }
 }
