@@ -1,5 +1,6 @@
 package com.clevertec.CheckRunner.services.impl;
 
+import com.clevertec.CheckRunner.exeption.ProductNotFoundException;
 import com.clevertec.CheckRunner.models.Basket;
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.models.Product;
@@ -31,12 +32,14 @@ public class BasketServiceImpl implements BasketService {
         for (String arg : args) {
             String[] separatedArg = arg.split("-");
             if (arg.contains("card")) {
-                discountCard = discountCardService.findByNumberCard((Integer.parseInt(separatedArg[1])));
+                discountCard = discountCardService
+                        .findByNumberCard((Integer.parseInt(separatedArg[1])));
             } else {
-                Product product = productService.findById(Long.parseLong(separatedArg[0]));
-                if (product != null) {
-                    products.put(product, Double.parseDouble(separatedArg[1]));
-                }
+                Product product = productService
+                        .findById(Long.parseLong(separatedArg[0]))
+                        .orElseThrow(() -> new ProductNotFoundException("Product with this ID not found"));
+                products.put(product, Double.parseDouble(separatedArg[1]));
+
             }
         }
         return Basket.builder()
@@ -52,7 +55,9 @@ public class BasketServiceImpl implements BasketService {
         DiscountCard discountCard = discountCardService.findByNumberCard(discountCardNumber);
         items.forEach(item -> {
             String[] separateArgs = item.split("-");
-            Product product = productService.findById(Long.parseLong(separateArgs[0]));
+            Product product = productService
+                    .findById(Long.parseLong(separateArgs[0]))
+                    .orElseThrow(() -> new ProductNotFoundException("Product with this ID not found"));
             if (product != null) {
                 products.put(product, Double.parseDouble(separateArgs[1]));
             }

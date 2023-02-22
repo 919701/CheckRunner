@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(long id) {
-        return productRepositories.findById(id).orElse(null);
+    public Optional<Product> findById(long id) {
+        return productRepositories.findById(id);
     }
 
     @Transactional
