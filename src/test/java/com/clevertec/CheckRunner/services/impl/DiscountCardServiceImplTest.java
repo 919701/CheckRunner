@@ -46,8 +46,8 @@ class DiscountCardServiceImplTest {
     @Test
     void findById() {
         when(repository.findById(1L)).thenReturn(Optional.ofNullable(discountCards.get(0)));
-        DiscountCard cardTest = service.findById(1L);
-        assertSame(discountCards.get(0), cardTest);
+        Optional<DiscountCard> cardTest = service.findById(1L);
+        assertEquals(Optional.ofNullable(discountCards.get(0)), cardTest);
         verify(repository).findById(any());
     }
 
@@ -59,6 +59,7 @@ class DiscountCardServiceImplTest {
 
     @Test
     void deleteDiscountCardByNumber() {
+        doNothing().when(repository).deleteByNumberCard(any());
         assertTrue(service.deleteDiscountCardByNumber(any()));
         verify(repository).deleteByNumberCard(any());
     }
