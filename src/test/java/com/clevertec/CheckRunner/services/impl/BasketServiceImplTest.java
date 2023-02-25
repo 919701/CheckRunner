@@ -36,19 +36,25 @@ class BasketServiceImplTest {
     }
 
     @Test
-    void checkBuildBasketShouldReturnBasket1Card10() {
+    void checkBuildBasketShouldReturnBasket1() {
         String[] args = {"1-2", "card-1234"};
         Basket basket = basketService.buildBasket(args);
         long expectedSizeBasket = 1;
-        double expectedPercentCard = 10;
 
         assertEquals(expectedSizeBasket, basket.getProducts().size());
+
         verify(productService).findById(anyLong());
+    }
+
+    @Test
+    void checkBuildBasketShouldReturnPercentCard10() {
+        String[] args = {"1-2", "card-1234"};
+        Basket basket = basketService.buildBasket(args);
+        double expectedPercentCard = 10;
 
         assertEquals(expectedPercentCard, basket.getDiscountCard().getDiscountPercent());
+
         verify(cardService).findByNumberCard(anyInt());
-
-
     }
 
     @Test
@@ -56,12 +62,20 @@ class BasketServiceImplTest {
         List<String> products = List.of("1-2");
         int cardNumber = 1234;
         long expectedSizeBasket = 1;
-        double expectedPercentCard = 10;
 
         Basket basket = basketService.buildBasket(products, cardNumber);
 
         assertEquals(expectedSizeBasket, basket.getProducts().size());
         verify(productService).findById(anyLong());
+    }
+
+    @Test
+    void checkBuildBasketShouldReturnCard() {
+        List<String> products = List.of("1-2");
+        int cardNumber = 1234;
+        double expectedPercentCard = 10;
+
+        Basket basket = basketService.buildBasket(products, cardNumber);
 
         assertEquals(expectedPercentCard, basket.getDiscountCard().getDiscountPercent());
         verify(cardService).findByNumberCard(anyInt());
@@ -70,7 +84,9 @@ class BasketServiceImplTest {
     @Test
     void coastProducts() {
         String[] args = {"1-2", "card-123"};
-        Basket basket = basketService.buildBasket(args);
+
+        basketService.buildBasket(args);
+
         verify(productService).findById(anyLong());
     }
 
@@ -89,8 +105,10 @@ class BasketServiceImplTest {
     void checkTotalWithDiscountShouldReturnTotal18() {
         String[] args = {"1-2", "card-123"};
         double expectedTotalCoast = 18;
+
         Basket basket = basketService.buildBasket(args);
         Double total = basketService.totalWithDiscount(basket);
+
         assertEquals(expectedTotalCoast, total);
     }
 }

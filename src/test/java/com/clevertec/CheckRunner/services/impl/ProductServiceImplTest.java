@@ -34,8 +34,10 @@ class ProductServiceImplTest {
     void checkFindAllProductsShouldReturn4() {
         when(productRepositories.findAll()).thenReturn(products);
         long expectedSize = 4;
+
         List<Product> productList = productService.findAllProducts();
-        assertEquals(4, productList.size());
+
+        assertEquals(expectedSize, productList.size());
         verify(productRepositories).findAll();
     }
 
@@ -43,7 +45,9 @@ class ProductServiceImplTest {
     void checkFindByIdShouldReturnProductTest2() {
         when(productRepositories.findById(2L)).thenReturn(Optional.ofNullable(products.get(1)));
         Optional<Product> expectedProduct = Optional.of(new Product(2L, "productTest2", 20.0, false));
+
         Optional<Product> productTest = productService.findById(2L);
+
         assertEquals(expectedProduct, productTest);
         verify(productRepositories).findById(any());
     }
@@ -57,6 +61,7 @@ class ProductServiceImplTest {
     @Test
     void checkDeleteProductShouldIsTrue() {
         doNothing().when(productRepositories).deleteById(any());
+
         assertTrue(productService.deleteProduct(any()));
         verify(productRepositories).deleteById(any());
     }
@@ -65,6 +70,7 @@ class ProductServiceImplTest {
     void checkUpdateProductShouldDoesNotTrow() {
         Product productUpdate = new Product(123L, "productDelete", 10.0, false);
         when(productRepositories.findById(any())).thenReturn(Optional.of(productUpdate));
+
         assertDoesNotThrow(() -> productService.updateProduct(any(), productUpdate));
         verify(productRepositories).findById(any());
     }
