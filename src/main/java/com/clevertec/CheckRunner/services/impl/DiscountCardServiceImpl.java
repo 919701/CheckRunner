@@ -1,5 +1,6 @@
 package com.clevertec.CheckRunner.services.impl;
 
+import com.clevertec.CheckRunner.exeption.DiscountCardNotFoundException;
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.repositories.DiscountCardRepository;
 import com.clevertec.CheckRunner.services.DiscountCardService;
@@ -49,7 +50,7 @@ public class DiscountCardServiceImpl implements DiscountCardService {
             update.setNumberCard(discountCard.getNumberCard());
             update.setDiscountPercent(discountCard.getDiscountPercent());
             return update;
-        }).orElseThrow();
+        }).orElseThrow(() -> new DiscountCardNotFoundException("Discount card non found"));
         return true;
     }
 }

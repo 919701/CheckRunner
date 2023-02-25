@@ -1,5 +1,6 @@
 package com.clevertec.CheckRunner.services.impl;
 
+import com.clevertec.CheckRunner.exeption.DiscountCardNotFoundException;
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.repositories.DiscountCardRepository;
 import org.junit.jupiter.api.Test;
@@ -80,7 +81,15 @@ class DiscountCardServiceImplTest {
         DiscountCard discountCard = new DiscountCard(123L, 123456, 12.0);
         when(cardRepository.findById(any())).thenReturn(Optional.of(discountCard));
 
-        assertDoesNotThrow(()-> cardService.updateDiscountCard(123L,discountCard));
+        assertDoesNotThrow(() -> cardService.updateDiscountCard(123L, discountCard));
         verify(cardRepository).findById(any());
+    }
+
+    @Test
+    void checkShouldReturnDiscountCardNotFoundException() {
+        DiscountCard discountCard = new DiscountCard(123L, 123456, 12.0);
+        long expectedCardId = 123;
+
+        assertThrows(DiscountCardNotFoundException.class, () -> cardService.updateDiscountCard(expectedCardId, discountCard));
     }
 }

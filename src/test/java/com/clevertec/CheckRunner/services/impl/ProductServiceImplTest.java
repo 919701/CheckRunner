@@ -1,5 +1,6 @@
 package com.clevertec.CheckRunner.services.impl;
 
+import com.clevertec.CheckRunner.exeption.ProductNotFoundException;
 import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.repositories.ProductRepositories;
 import org.junit.jupiter.api.Test;
@@ -73,5 +74,13 @@ class ProductServiceImplTest {
 
         assertDoesNotThrow(() -> productService.updateProduct(any(), productUpdate));
         verify(productRepositories).findById(any());
+    }
+
+    @Test
+    void checkUpdateProductShouldExceptionFindById() {
+        Product productUpdate = new Product(123L, "productDelete", 10.0, false);
+        long expectedProductId = 123;
+
+        assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(expectedProductId, productUpdate));
     }
 }
