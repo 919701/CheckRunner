@@ -16,7 +16,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-//@AllArgsConstructor
 @ExtendWith(MockitoExtension.class)
 class BasketServiceImplTest {
 
@@ -37,30 +36,34 @@ class BasketServiceImplTest {
     }
 
     @Test
-    void buildBasket() {
+    void checkBuildBasketShouldReturnBasket1Card10() {
         String[] args = {"1-2", "card-1234"};
         Basket basket = basketService.buildBasket(args);
+        long expectedSizeBasket = 1;
+        double expectedPercentCard = 10;
 
-        assertEquals(1, basket.getProducts().size());
+        assertEquals(expectedSizeBasket, basket.getProducts().size());
         verify(productService).findById(anyLong());
 
-        assertEquals(10, basket.getDiscountCard().getDiscountPercent());
+        assertEquals(expectedPercentCard, basket.getDiscountCard().getDiscountPercent());
         verify(cardService).findByNumberCard(anyInt());
 
 
     }
 
     @Test
-    void testBuildBasket() {
+    void checkBuildBasketShouldReturnBasket() {
         List<String> products = List.of("1-2");
         int cardNumber = 1234;
+        long expectedSizeBasket = 1;
+        double expectedPercentCard = 10;
 
         Basket basket = basketService.buildBasket(products, cardNumber);
 
-        assertEquals(1, basket.getProducts().size());
+        assertEquals(expectedSizeBasket, basket.getProducts().size());
         verify(productService).findById(anyLong());
 
-        assertEquals(10, basket.getDiscountCard().getDiscountPercent());
+        assertEquals(expectedPercentCard, basket.getDiscountCard().getDiscountPercent());
         verify(cardService).findByNumberCard(anyInt());
     }
 
@@ -72,18 +75,22 @@ class BasketServiceImplTest {
     }
 
     @Test
-    void totalWithoutDiscount() {
+    void checkTotalWithoutDiscountShouldReturnTotal20() {
         String[] args = {"1-2", "card-123"};
+        double expectedTotalCoast = 20;
+
         Basket basket = basketService.buildBasket(args);
         Double total = basketService.totalWithoutDiscount(basket);
-        assertEquals(20, total);
+
+        assertEquals(expectedTotalCoast, total);
     }
 
     @Test
-    void totalWithDiscount() {
+    void checkTotalWithDiscountShouldReturnTotal18() {
         String[] args = {"1-2", "card-123"};
+        double expectedTotalCoast = 18;
         Basket basket = basketService.buildBasket(args);
         Double total = basketService.totalWithDiscount(basket);
-        assertEquals(18, total);
+        assertEquals(expectedTotalCoast, total);
     }
 }

@@ -28,44 +28,47 @@ class DiscountCardServiceImplTest {
     );
 
     @Test
-    void findByNumberCard() {
+    void checkFindByNumberCardShouldReturn123() {
         when(cardRepository.findByNumberCard(123)).thenReturn(discountCards.get(0));
+        DiscountCard card = new DiscountCard(1L, 123, 5.0);
         DiscountCard cardTest = cardService.findByNumberCard(123);
-        assertSame(discountCards.get(0), cardTest);
+        assertEquals(card, cardTest);
         verify(cardRepository).findByNumberCard(anyInt());
     }
 
     @Test
-    void allDiscountCard() {
+    void checkAllDiscountCardShouldReturn3() {
         when(cardRepository.findAll()).thenReturn(discountCards);
+        long expectedSize = 3;
         List<DiscountCard> cardsTest = cardService.allDiscountCard();
-        assertSame(discountCards, cardsTest);
+        assertEquals(expectedSize, cardsTest.size());
         verify(cardRepository).findAll();
     }
 
     @Test
-    void findById() {
+    void checkFindByIdShouldReturn1() {
         when(cardRepository.findById(1L)).thenReturn(Optional.ofNullable(discountCards.get(0)));
+        Optional<DiscountCard> expectedCard = Optional.of(new DiscountCard(1L, 123, 5.0));
         Optional<DiscountCard> cardTest = cardService.findById(1L);
-        assertEquals(Optional.ofNullable(discountCards.get(0)), cardTest);
+        assertEquals(expectedCard, cardTest);
         verify(cardRepository).findById(any());
     }
 
     @Test
-    void saveDiscountCard() {
+    void checkSaveDiscountCard() {
         assertTrue(cardService.saveDiscountCard(any()));
         verify(cardRepository).save(any());
     }
 
     @Test
-    void deleteDiscountCardByNumber() {
+    void checkDeleteDiscountCardByNumberShouldTrue() {
         doNothing().when(cardRepository).deleteByNumberCard(any());
         assertTrue(cardService.deleteDiscountCardByNumber(any()));
         verify(cardRepository).deleteByNumberCard(any());
     }
 
     @Test
-    void updateDiscountCard() {
+    void checkUpdateDiscountCardShouldDoesNotThrow() {
         DiscountCard discountCard = new DiscountCard(123L, 123456, 12.0);
         when(cardRepository.findById(any())).thenReturn(Optional.of(discountCard));
         assertDoesNotThrow(()-> cardService.updateDiscountCard(123L,discountCard));

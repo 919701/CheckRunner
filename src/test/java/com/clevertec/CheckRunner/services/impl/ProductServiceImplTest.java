@@ -31,37 +31,38 @@ class ProductServiceImplTest {
     );
 
     @Test
-    void findAllProducts() {
+    void checkFindAllProductsShouldReturn4() {
         when(productRepositories.findAll()).thenReturn(products);
+        long expectedSize = 4;
         List<Product> productList = productService.findAllProducts();
-        assertEquals(products, productList);
+        assertEquals(4, productList.size());
         verify(productRepositories).findAll();
     }
 
     @Test
-    void findById() {
+    void checkFindByIdShouldReturnProductTest2() {
         when(productRepositories.findById(2L)).thenReturn(Optional.ofNullable(products.get(1)));
+        Optional<Product> expectedProduct = Optional.of(new Product(2L, "productTest2", 20.0, false));
         Optional<Product> productTest = productService.findById(2L);
-        assertEquals( Optional.ofNullable(products.get(1)), productTest);
+        assertEquals(expectedProduct, productTest);
         verify(productRepositories).findById(any());
     }
 
     @Test
-    void saveProduct() {
+    void checkSaveProduct() {
         assertTrue(productService.saveProduct(any()));
         verify(productRepositories).save(any());
-
     }
 
     @Test
-    void deleteProduct() {
+    void checkDeleteProductShouldIsTrue() {
         doNothing().when(productRepositories).deleteById(any());
         assertTrue(productService.deleteProduct(any()));
         verify(productRepositories).deleteById(any());
     }
 
     @Test
-    void updateProduct() {
+    void checkUpdateProductShouldDoesNotTrow() {
         Product productUpdate = new Product(123L, "productDelete", 10.0, false);
         when(productRepositories.findById(any())).thenReturn(Optional.of(productUpdate));
         assertDoesNotThrow(() -> productService.updateProduct(any(), productUpdate));
