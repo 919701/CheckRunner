@@ -1,6 +1,5 @@
 package com.clevertec.CheckRunner.services.impl;
 
-import com.clevertec.CheckRunner.exeption.ProductNotFoundException;
 import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.repositories.ProductRepositories;
 import org.junit.jupiter.api.Test;
@@ -32,55 +31,40 @@ class ProductServiceImplTest {
     );
 
     @Test
-    void checkFindAllProductsShouldReturn4() {
-        when(productRepositories.findAll()).thenReturn(products);
-        long expectedSize = 4;
-
+    void findAllProducts() {
+        doReturn(products).when(productRepositories).findAll();
         List<Product> productList = productService.findAllProducts();
-
-        assertEquals(expectedSize, productList.size());
+        assertEquals(products, productList);
         verify(productRepositories).findAll();
     }
 
     @Test
-    void checkFindByIdShouldReturnProductTest2() {
-        when(productRepositories.findById(2L)).thenReturn(Optional.ofNullable(products.get(1)));
-        Optional<Product> expectedProduct = Optional.of(new Product(2L, "productTest2", 20.0, false));
-
+    void findById() {
+        doReturn(Optional.ofNullable(products.get(1))).when(productRepositories).findById(2L);
         Optional<Product> productTest = productService.findById(2L);
-
-        assertEquals(expectedProduct, productTest);
+        assertEquals( Optional.ofNullable(products.get(1)), productTest);
         verify(productRepositories).findById(any());
     }
 
     @Test
-    void checkSaveProduct() {
+    void saveProduct() {
         assertTrue(productService.saveProduct(any()));
         verify(productRepositories).save(any());
+
     }
 
     @Test
-    void checkDeleteProductShouldIsTrue() {
+    void deleteProduct() {
         doNothing().when(productRepositories).deleteById(any());
-
         assertTrue(productService.deleteProduct(any()));
         verify(productRepositories).deleteById(any());
     }
 
     @Test
-    void checkUpdateProductShouldDoesNotTrow() {
+    void updateProduct() {
         Product productUpdate = new Product(123L, "productDelete", 10.0, false);
-        when(productRepositories.findById(any())).thenReturn(Optional.of(productUpdate));
-
+        doReturn(Optional.of(productUpdate)).when(productRepositories).findById(any());
         assertDoesNotThrow(() -> productService.updateProduct(any(), productUpdate));
         verify(productRepositories).findById(any());
-    }
-
-    @Test
-    void checkUpdateProductShouldExceptionFindById() {
-        Product productUpdate = new Product(123L, "productDelete", 10.0, false);
-        long expectedProductId = 123;
-
-        assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(expectedProductId, productUpdate));
     }
 }

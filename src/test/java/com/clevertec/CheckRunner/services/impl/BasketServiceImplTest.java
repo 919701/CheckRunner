@@ -31,8 +31,8 @@ class BasketServiceImplTest {
         Product product = new Product(1L, "productName", 10.0, false);
         DiscountCard card = new DiscountCard(1L, 1234, 10.0);
 
-        when(productService.findById(anyLong())).thenReturn(Optional.of(product));
-        when(cardService.findByNumberCard(anyInt())).thenReturn(card);
+        doReturn(Optional.of(product)).when(productService).findById(anyLong());
+        doReturn(card).when(cardService).findByNumberCard(anyInt());
     }
 
     @Test
