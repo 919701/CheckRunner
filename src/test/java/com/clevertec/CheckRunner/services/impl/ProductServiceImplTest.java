@@ -2,7 +2,6 @@ package com.clevertec.CheckRunner.services.impl;
 
 import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.repositories.ProductRepositories;
-import com.clevertec.CheckRunner.utils.impl.ProductTestBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static com.clevertec.CheckRunner.utils.impl.ProductTestBuilder.aProduct;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -25,8 +25,8 @@ class ProductServiceImplTest {
     private ProductServiceImpl productService;
 
     final List<Product> products = List.of(
-            ProductTestBuilder.aProduct().build(),
-            ProductTestBuilder.aProduct()
+            aProduct().build(),
+            aProduct()
                     .withId(2L)
                     .withTitle("Product2")
                     .withPrice(20.0)
@@ -75,7 +75,7 @@ class ProductServiceImplTest {
     @Test
     void updateProduct() {
 
-        Product productUpdate = ProductTestBuilder.aProduct().withId(123l).build();
+        final var productUpdate = aProduct().withId(123l).build();
 
         doReturn(Optional.of(productUpdate)).when(productRepositories).findById(any());
 

@@ -2,7 +2,6 @@ package com.clevertec.CheckRunner.services.impl;
 
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.repositories.DiscountCardRepository;
-import com.clevertec.CheckRunner.utils.impl.DiscountCardTestBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static com.clevertec.CheckRunner.utils.impl.DiscountCardTestBuilder.aDiscountCard;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -25,15 +25,9 @@ class DiscountCardServiceImplTest {
     private DiscountCardServiceImpl cardService;
 
     final List<DiscountCard> discountCards = List.of(
-            DiscountCardTestBuilder.aDiscountCard()
-                    .withId(1L)
-                    .withNumberCard(123)
-                    .withDiscountPercent(10.0)
-                    .build(),
-            DiscountCardTestBuilder.aDiscountCard()
+            aDiscountCard().build(),
+            aDiscountCard()
                     .withId(2L)
-                    .withNumberCard(234)
-                    .withDiscountPercent(15.0)
                     .build()
     );
 
@@ -90,7 +84,7 @@ class DiscountCardServiceImplTest {
     @Test
     void updateDiscountCard() {
 
-        final var discountCard = DiscountCardTestBuilder.aDiscountCard()
+        final var discountCard = aDiscountCard()
                 .withId(123L)
                 .build();
 
