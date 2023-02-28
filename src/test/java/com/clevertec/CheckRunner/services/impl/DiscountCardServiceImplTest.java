@@ -2,6 +2,7 @@ package com.clevertec.CheckRunner.services.impl;
 
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.repositories.DiscountCardRepository;
+import com.clevertec.CheckRunner.utils.impl.DiscountCardTestBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,10 +23,18 @@ class DiscountCardServiceImplTest {
     private DiscountCardRepository cardRepository;
     @InjectMocks
     private DiscountCardServiceImpl cardService;
-    List<DiscountCard> discountCards = List.of(
-            new DiscountCard(1L, 123, 5.0),
-            new DiscountCard(2L, 234, 10.0),
-            new DiscountCard(3L, 345, 15.0)
+
+    final List<DiscountCard> discountCards = List.of(
+            DiscountCardTestBuilder.aDiscountCard()
+                    .withId(1L)
+                    .withNumberCard(123)
+                    .withDiscountPercent(10.0)
+                    .build(),
+            DiscountCardTestBuilder.aDiscountCard()
+                    .withId(2L)
+                    .withNumberCard(234)
+                    .withDiscountPercent(15.0)
+                    .build()
     );
 
     @Test
@@ -36,6 +46,7 @@ class DiscountCardServiceImplTest {
 
         assertSame(discountCards.get(0), cardTest);
         verify(cardRepository).findByNumberCard(anyInt());
+
     }
 
     @Test
@@ -79,11 +90,13 @@ class DiscountCardServiceImplTest {
     @Test
     void updateDiscountCard() {
 
-        final var discountCard = new DiscountCard(123L, 123456, 12.0);
+        final var discountCard = DiscountCardTestBuilder.aDiscountCard()
+                .withId(123L)
+                .build();
 
         doReturn(Optional.of(discountCard)).when(cardRepository).findById(123L);
 
-        assertDoesNotThrow(()-> cardService.updateDiscountCard(123L,discountCard));
+        assertDoesNotThrow(() -> cardService.updateDiscountCard(123L, discountCard));
         verify(cardRepository).findById(any());
     }
 }

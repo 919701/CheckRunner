@@ -2,6 +2,7 @@ package com.clevertec.CheckRunner.services.impl;
 
 import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.repositories.ProductRepositories;
+import com.clevertec.CheckRunner.utils.impl.ProductTestBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,16 +19,19 @@ import static org.mockito.Mockito.*;
 class ProductServiceImplTest {
 
     @Mock
-    private  ProductRepositories productRepositories;
+    private ProductRepositories productRepositories;
 
     @InjectMocks
     private ProductServiceImpl productService;
 
-    List<Product> products = List.of(
-            new Product(1L, "productTest1", 10.0, false),
-            new Product(2L, "productTest2", 20.0, false),
-            new Product(3L, "productTest3", 30.0, true),
-            new Product(4L, "productTest4", 40.0, false)
+    final List<Product> products = List.of(
+            ProductTestBuilder.aProduct().build(),
+            ProductTestBuilder.aProduct()
+                    .withId(2L)
+                    .withTitle("Product2")
+                    .withPrice(20.0)
+                    .withDiscount(true)
+                    .build()
     );
 
     @Test
@@ -48,7 +52,7 @@ class ProductServiceImplTest {
 
         final var productTest = productService.findById(2L);
 
-        assertEquals( Optional.ofNullable(products.get(1)), productTest);
+        assertEquals(Optional.ofNullable(products.get(1)), productTest);
         verify(productRepositories).findById(any());
     }
 
@@ -71,7 +75,7 @@ class ProductServiceImplTest {
     @Test
     void updateProduct() {
 
-        final var productUpdate = new Product(123L, "productDelete", 10.0, false);
+        Product productUpdate = ProductTestBuilder.aProduct().withId(123l).build();
 
         doReturn(Optional.of(productUpdate)).when(productRepositories).findById(any());
 
