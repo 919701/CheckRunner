@@ -12,7 +12,7 @@ import lombok.With;
 public class ProductTestBuilder implements TestBuilder<Product> {
 
     private Long id = 1L;
-    private String title = "";
+    private String title = "Product";
     private Double price = 10.0;
     private Boolean discount = false;
 
