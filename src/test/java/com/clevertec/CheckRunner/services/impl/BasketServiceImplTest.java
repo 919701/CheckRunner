@@ -28,6 +28,7 @@ class BasketServiceImplTest {
 
     @BeforeEach
     void setResources() {
+
         Product product = new Product(1L, "productName", 10.0, false);
         DiscountCard card = new DiscountCard(1L, 1234, 10.0);
 
@@ -37,9 +38,10 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnBasket1() {
+
         String[] args = {"1-2", "card-1234"};
         Basket basket = basketService.buildBasket(args);
-        long expectedSizeBasket = 1;
+        final var expectedSizeBasket = 1;
 
         assertEquals(expectedSizeBasket, basket.getProducts().size());
 
@@ -48,8 +50,9 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnPercentCard10() {
+
         String[] args = {"1-2", "card-1234"};
-        Basket basket = basketService.buildBasket(args);
+        final var basket = basketService.buildBasket(args);
         double expectedPercentCard = 10;
 
         assertEquals(expectedPercentCard, basket.getDiscountCard().getDiscountPercent());
@@ -59,7 +62,8 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnBasket() {
-        List<String> products = List.of("1-2");
+
+        final var products = List.of("1-2");
         int cardNumber = 1234;
         long expectedSizeBasket = 1;
 
@@ -71,7 +75,8 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnCard() {
-        List<String> products = List.of("1-2");
+
+        final var products = List.of("1-2");
         int cardNumber = 1234;
         double expectedPercentCard = 10;
 
@@ -83,6 +88,7 @@ class BasketServiceImplTest {
 
     @Test
     void coastProducts() {
+
         String[] args = {"1-2", "card-123"};
 
         basketService.buildBasket(args);
@@ -92,22 +98,24 @@ class BasketServiceImplTest {
 
     @Test
     void checkTotalWithoutDiscountShouldReturnTotal20() {
+
         String[] args = {"1-2", "card-123"};
         double expectedTotalCoast = 20;
 
-        Basket basket = basketService.buildBasket(args);
-        Double total = basketService.totalWithoutDiscount(basket);
+        final var basket = basketService.buildBasket(args);
+        final var total = basketService.totalWithoutDiscount(basket);
 
         assertEquals(expectedTotalCoast, total);
     }
 
     @Test
     void checkTotalWithDiscountShouldReturnTotal18() {
+
         String[] args = {"1-2", "card-123"};
         double expectedTotalCoast = 18;
 
-        Basket basket = basketService.buildBasket(args);
-        Double total = basketService.totalWithDiscount(basket);
+        final var basket = basketService.buildBasket(args);
+        final var total = basketService.totalWithDiscount(basket);
 
         assertEquals(expectedTotalCoast, total);
     }
