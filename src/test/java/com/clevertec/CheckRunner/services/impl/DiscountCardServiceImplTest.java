@@ -33,6 +33,7 @@ class DiscountCardServiceImplTest {
 
     @Test
     void findByNumberCard() {
+
         doReturn(discountCards.get(0)).when(cardRepository).findByNumberCard(123);
 
         final var cardTest = cardService.findByNumberCard(123);
@@ -44,6 +45,7 @@ class DiscountCardServiceImplTest {
 
     @Test
     void allDiscountCard() {
+
         doReturn(discountCards).when(cardRepository).findAll();
 
         final var cardsTest = cardService.allDiscountCard();
@@ -54,6 +56,7 @@ class DiscountCardServiceImplTest {
 
     @Test
     void findById() {
+
         doReturn(Optional.ofNullable(discountCards.get(0))).when(cardRepository).findById(1L);
 
         final var cardTest = cardService.findById(1L);
@@ -64,12 +67,14 @@ class DiscountCardServiceImplTest {
 
     @Test
     void saveDiscountCard() {
+
         assertTrue(cardService.saveDiscountCard(any()));
         verify(cardRepository).save(any());
     }
 
     @Test
     void deleteDiscountCardByNumber() {
+
         doNothing().when(cardRepository).deleteByNumberCard(any());
 
         assertTrue(cardService.deleteDiscountCardByNumber(any()));
@@ -78,6 +83,7 @@ class DiscountCardServiceImplTest {
 
     @Test
     void updateDiscountCard() {
+
         final var discountCard = aDiscountCard()
                 .withId(123L)
                 .build();

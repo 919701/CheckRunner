@@ -33,6 +33,7 @@ class ProductServiceImplTest {
 
     @Test
     void findAllProducts() {
+
         doReturn(products).when(productRepositories).findAll();
 
         final var productList = productService.findAllProducts();
@@ -43,6 +44,7 @@ class ProductServiceImplTest {
 
     @Test
     void findById() {
+
         doReturn(Optional.ofNullable(products.get(1))).when(productRepositories).findById(2L);
 
         final var productTest = productService.findById(2L);
@@ -53,12 +55,14 @@ class ProductServiceImplTest {
 
     @Test
     void saveProduct() {
+
         assertTrue(productService.saveProduct(any()));
         verify(productRepositories).save(any());
     }
 
     @Test
     void deleteProduct() {
+
         doNothing().when(productRepositories).deleteById(any());
 
         assertTrue(productService.deleteProduct(any()));
@@ -67,6 +71,7 @@ class ProductServiceImplTest {
 
     @Test
     void updateProduct() {
+
         final var productUpdate = aProduct().withId(123L).build();
 
         doReturn(Optional.of(productUpdate)).when(productRepositories).findById(any());
