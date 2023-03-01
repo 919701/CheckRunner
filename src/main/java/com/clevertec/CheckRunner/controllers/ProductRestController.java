@@ -3,12 +3,9 @@ package com.clevertec.CheckRunner.controllers;
 import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.services.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,11 +18,10 @@ public class ProductRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return productService.findById(id)
-                .map(product -> ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .body(product)
-                ).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT));
+        Product product = productService.findById(id);
+        return product != null
+                ? new ResponseEntity<>(product, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping()

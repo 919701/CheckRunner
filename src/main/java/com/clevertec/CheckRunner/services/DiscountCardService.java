@@ -3,7 +3,6 @@ package com.clevertec.CheckRunner.services;
 import com.clevertec.CheckRunner.models.DiscountCard;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DiscountCardService {
 
@@ -11,7 +10,7 @@ public interface DiscountCardService {
 
     List<DiscountCard> allDiscountCard();
 
-    Optional<DiscountCard> findById(Long id);
+    DiscountCard findById(Long id);
 
     Boolean saveDiscountCard(DiscountCard discountCard);
 

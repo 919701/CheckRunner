@@ -16,12 +16,13 @@ public class BasketWriteFile implements BasketWrite {
 
     private final BasketWriteConsole consoleCashReceiptWrite;
     private final BasketToString basketToString;
-    private final String FILE_NAME = "CashReceipt.txt";
-    public void write(Basket basket) {
 
-        try (PrintWriter fileWriter = new PrintWriter(FILE_NAME)) {
+    public void write(Basket basket) {
+        try {
+            PrintWriter fileWriter = new PrintWriter("CashReceipt.txt");
             consoleCashReceiptWrite.write(basket);
             fileWriter.write(basketToString.printCheck(basket));
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
