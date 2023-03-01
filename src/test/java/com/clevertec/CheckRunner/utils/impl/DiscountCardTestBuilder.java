@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
-@With
 @AllArgsConstructor
 @NoArgsConstructor(staticName = "aDiscountCard")
+@With
 public class DiscountCardTestBuilder implements TestBuilder<DiscountCard> {
 
     private Long id = 1L;

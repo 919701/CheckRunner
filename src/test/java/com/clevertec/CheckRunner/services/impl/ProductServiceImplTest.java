@@ -28,9 +28,6 @@ class ProductServiceImplTest {
             aProduct().build(),
             aProduct()
                     .withId(2L)
-                    .withTitle("Product2")
-                    .withPrice(20.0)
-                    .withDiscount(true)
                     .build()
     );
 
@@ -75,7 +72,7 @@ class ProductServiceImplTest {
     @Test
     void updateProduct() {
 
-        final var productUpdate = aProduct().withId(123l).build();
+        final var productUpdate = aProduct().withId(123L).build();
 
         doReturn(Optional.of(productUpdate)).when(productRepositories).findById(any());
 
