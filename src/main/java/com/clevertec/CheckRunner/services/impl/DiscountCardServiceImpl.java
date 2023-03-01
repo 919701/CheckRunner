@@ -1,5 +1,6 @@
 package com.clevertec.CheckRunner.services.impl;
 
+import com.clevertec.CheckRunner.exeption.DiscountCardNotFoundException;
 import com.clevertec.CheckRunner.models.DiscountCard;
 import com.clevertec.CheckRunner.repositories.DiscountCardRepository;
 import com.clevertec.CheckRunner.services.DiscountCardService;
@@ -9,11 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 @Component
-
 public class DiscountCardServiceImpl implements DiscountCardService {
 
     private final DiscountCardRepository discountCardRepository;
@@ -27,8 +28,8 @@ public class DiscountCardServiceImpl implements DiscountCardService {
         return discountCardRepository.findAll();
     }
 
-    public DiscountCard findById(Long id) {
-        return discountCardRepository.findById(id).orElse(null);
+    public Optional<DiscountCard> findById(Long id) {
+        return discountCardRepository.findById(id);
     }
 
     @Transactional
@@ -49,7 +50,7 @@ public class DiscountCardServiceImpl implements DiscountCardService {
             update.setNumberCard(discountCard.getNumberCard());
             update.setDiscountPercent(discountCard.getDiscountPercent());
             return update;
-        }).orElseThrow();
+        }).orElseThrow(() -> new DiscountCardNotFoundException("Discount card non found"));
         return true;
     }
 }
