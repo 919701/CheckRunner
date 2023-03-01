@@ -10,7 +10,6 @@ import lombok.With;
 @NoArgsConstructor(staticName = "aDiscountCard")
 @With
 public class DiscountCardTestBuilder implements TestBuilder<DiscountCard> {
-
     private Long id = 1L;
     private Integer numberCard = 123;
     private Double discountPercent = 10.0;
