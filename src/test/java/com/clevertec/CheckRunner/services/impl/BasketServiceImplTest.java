@@ -28,7 +28,6 @@ class BasketServiceImplTest {
 
     @BeforeEach
     void setResources() {
-
         Product product = new Product(1L, "productName", 10.0, false);
         DiscountCard card = new DiscountCard(1L, 1234, 10.0);
 
@@ -38,7 +37,6 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnBasket1() {
-
         String[] args = {"1-2", "card-1234"};
         Basket basket = basketService.buildBasket(args);
         final var expectedSizeBasket = 1;
@@ -50,7 +48,6 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnPercentCard10() {
-
         String[] args = {"1-2", "card-1234"};
         final var basket = basketService.buildBasket(args);
         double expectedPercentCard = 10;
@@ -62,7 +59,6 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnBasket() {
-
         final var products = List.of("1-2");
         int cardNumber = 1234;
         long expectedSizeBasket = 1;
@@ -75,7 +71,6 @@ class BasketServiceImplTest {
 
     @Test
     void checkBuildBasketShouldReturnCard() {
-
         final var products = List.of("1-2");
         int cardNumber = 1234;
         double expectedPercentCard = 10;
@@ -88,7 +83,6 @@ class BasketServiceImplTest {
 
     @Test
     void coastProducts() {
-
         String[] args = {"1-2", "card-123"};
 
         basketService.buildBasket(args);
@@ -98,7 +92,6 @@ class BasketServiceImplTest {
 
     @Test
     void checkTotalWithoutDiscountShouldReturnTotal20() {
-
         String[] args = {"1-2", "card-123"};
         double expectedTotalCoast = 20;
 
@@ -110,7 +103,6 @@ class BasketServiceImplTest {
 
     @Test
     void checkTotalWithDiscountShouldReturnTotal18() {
-
         String[] args = {"1-2", "card-123"};
         double expectedTotalCoast = 18;
 

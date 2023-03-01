@@ -10,7 +10,6 @@ import lombok.With;
 @NoArgsConstructor(staticName = "aProduct")
 @With
 public class ProductTestBuilder implements TestBuilder<Product> {
-
     private Long id = 1L;
     private String title = "Product";
     private Double price = 10.0;
