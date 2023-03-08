@@ -1,0 +1,15 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: 12345678
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+    sql:
+        init:
+            data-locations: classpath*:database/initpoint.sql
+            mode: always
+            schema-locations: classpath*:database/initdb.sql

@@ -4,8 +4,8 @@
               12. MILKYWAY Galaxy/ Earth
                 Tel: 123-456-70000
 
-Cashier: #1520                               DATE:2023-02-25
-                                               TIME:09:01:42
+Cashier: #1520                               DATE:2023-03-08
+                                               TIME:19:53:30
 DISCOUNT CARD: 1234
 ------------------------------------------------------------
  QTY                 DESCRIPTION          PRICE       TOTAL
