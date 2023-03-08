@@ -5,6 +5,7 @@ import com.clevertec.CheckRunner.models.Product;
 import com.clevertec.CheckRunner.repositories.ProductRepositories;
 import com.clevertec.CheckRunner.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

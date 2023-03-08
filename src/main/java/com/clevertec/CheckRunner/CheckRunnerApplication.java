@@ -15,9 +15,8 @@ public class CheckRunnerApplication {
 
         ApplicationContext context =  SpringApplication.run(CheckRunnerApplication.class, args);
 
-        Basket basket = context.getBean(BasketService.class).buildBasket(args);
+        var basket = context.getBean(BasketService.class).buildBasket(args);
         context.getBean(BasketWriteFile.class).write(basket);
-
     }
 
 }
