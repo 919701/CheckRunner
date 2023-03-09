@@ -1,12 +1,14 @@
 package com.clevertec.CheckRunner.services;
 
+import java.util.Optional;
+
 public interface Cache<K, V> {
 
-    V get(K key);
+    Optional<V> get(K key);
 
     void put(K key, V value);
 
-    V getSilent (K key );
+    Optional<V> getSilent (K key );
 
     void remove ( K key );
 

@@ -1,27 +1,36 @@
 package com.clevertec.CheckRunner.services.impl;
 
 import com.clevertec.CheckRunner.services.Cache;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Optional;
 
+@Component
+@Service
+@NoArgsConstructor
 public final class LRUCacheImpl<K, V> implements Cache<K, V> {
 
     Map<K, V> map = new HashMap<>();
     LinkedList<K> queue = new LinkedList<>();
-    final int limit;
+    private int limit;
 
     public LRUCacheImpl(int limit) {
         this.limit = limit;
     }
 
     @Override
-    public V get(K key) {
+    public Optional<V> get(K key) {
 
         queue.removeFirstOccurrence(key);
         queue.addFirst(key);
-        return map.get(key);
+        return (Optional<V>) map.get(key);
     }
 
     @Override
@@ -40,8 +49,8 @@ public final class LRUCacheImpl<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public V getSilent(K key) {
-        return map.get(key);
+    public Optional<V> getSilent(K key) {
+        return (Optional<V>) map.get(key);
     }
 
     @Override

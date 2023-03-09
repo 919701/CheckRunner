@@ -17,6 +17,7 @@ public class CheckRunnerApplication {
 
         var basket = context.getBean(BasketService.class).buildBasket(args);
         context.getBean(BasketWriteFile.class).write(basket);
+
     }
 
 }
