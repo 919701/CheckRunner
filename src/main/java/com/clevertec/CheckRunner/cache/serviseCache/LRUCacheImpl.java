@@ -1,9 +1,7 @@
-package com.clevertec.CheckRunner.services.impl;
+package com.clevertec.CheckRunner.cache.serviseCache;
 
-import com.clevertec.CheckRunner.services.Cache;
-import lombok.AllArgsConstructor;
+import com.clevertec.CheckRunner.cache.Cache;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 

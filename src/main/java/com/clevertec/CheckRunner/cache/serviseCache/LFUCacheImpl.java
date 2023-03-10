@@ -1,6 +1,7 @@
-package com.clevertec.CheckRunner.services.impl;
+package com.clevertec.CheckRunner.cache.serviseCache;
 
-import com.clevertec.CheckRunner.services.Cache;
+import com.clevertec.CheckRunner.cache.Cache;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,14 @@ import java.util.Optional;
 
 @Service
 @Component
+@NoArgsConstructor
 public class LFUCacheImpl<K, V> implements Cache<K, V> {
+
+    private int limit;
+
+    public LFUCacheImpl(int limit) {
+        this.limit = limit;
+    }
 
 
     @Override

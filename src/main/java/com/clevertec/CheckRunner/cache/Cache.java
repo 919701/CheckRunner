@@ -1,4 +1,4 @@
-package com.clevertec.CheckRunner.services;
+package com.clevertec.CheckRunner.cache;
 
 import java.util.Optional;
 
