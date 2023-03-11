@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static com.clevertec.CheckRunner.utils.impl.DiscountCardTestBuilder.aDiscountCard;
+import static com.clevertec.CheckRunner.utils.impl.DiscountCardTestBuilder.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;

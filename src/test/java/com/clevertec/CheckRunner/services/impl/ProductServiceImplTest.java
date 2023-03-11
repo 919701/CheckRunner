@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static com.clevertec.CheckRunner.utils.impl.ProductTestBuilder.aProduct;
+import static com.clevertec.CheckRunner.utils.impl.ProductTestBuilder.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

@@ -2,8 +2,8 @@ package com.clevertec.CheckRunner.aop.aspects;
 
 import com.clevertec.CheckRunner.cache.Cache;
 import com.clevertec.CheckRunner.cache.factoryCache.CacheFactory;
+import com.clevertec.CheckRunner.cache.factoryCache.CacheTypeMethod;
 import com.clevertec.CheckRunner.models.Product;
-import com.clevertec.CheckRunner.cache.serviseCache.LRUCacheImpl;
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,21 +17,27 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ProductAspect {
 
-    private final Cache cache = new CacheFactory().getCacheMethod("LRU",10);
+    private final Cache<Long, Optional<Product>> cache = new CacheFactory().getCacheMethod(CacheTypeMethod.LRU, 10);
 
 
-    @Around("execution(* com.clevertec.CheckRunner.services.ProductService.findById(..))")
-    public Optional<Product> aroundGetProductIdAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+//    @Around("execution(* com.clevertec.CheckRunner.services.ProductService.findById(..))")
+//    public Optional<Product> aroundGetProductIdAdvice(ProceedingJoinPoint joinPoint) {
 
-        var id = (Long) joinPoint.getArgs()[0];
-//        var cacheProduct = cache.get(id);
-//        System.out.println("-".repeat(60) + "\n" + cacheProduct.isPresent());
-//        if (cacheProduct.isEmpty()) {
-//            var product = (Product) joinPoint.proceed();
-//            cache.put(id, product);
-//            return Optional.ofNullable(product);
+//        var id = (Long) joinPoint.getArgs()[0];
+//        System.out.println("Request id product:" + id);
+//
+//        var cacheProduct =  cache.get(id);
+//        System.out.println("cacheProduct: " + cacheProduct);
+//
+//        if (cache.get(id).isEmpty()) {
+//            try {
+//                var product = (Optional<Product>) joinPoint.proceed();
+//                cache.put(id, product);
+//                return cache.get(id);
+//            } catch (Throwable e) {
+//                throw new RuntimeException(e);
+//            }
 //        }
-
-        return (Optional<Product>) joinPoint.proceed();
-    }
+//        return cacheProduct;
+//    }
 }
