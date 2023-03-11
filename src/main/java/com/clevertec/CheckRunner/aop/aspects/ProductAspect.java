@@ -17,7 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ProductAspect {
 
-    private final Cache<Long, Optional<Product>> cache = new CacheFactory().getCacheMethod(CacheTypeMethod.LRU, 10);
+    private final Cache<Long, Optional<Product>> cache = new CacheFactory().getCacheMethod(10, CacheTypeMethod.LRU);
 
 
 //    @Around("execution(* com.clevertec.CheckRunner.services.ProductService.findById(..))")

@@ -6,10 +6,10 @@ import com.clevertec.CheckRunner.cache.implCache.LRUCache;
 
 public class CacheFactory {
 
-    public <K,V> Cache<K,V> getCacheMethod(CacheTypeMethod methodCache,int capacity) {
+    public <K, V> Cache<K, V> getCacheMethod(int capacity, CacheTypeMethod methodCache) {
         return switch (methodCache) {
             case LFU -> new LFUCache<>(capacity);
-            case LRU-> new LRUCache<>(capacity);
+            case LRU -> new LRUCache<>(capacity);
         };
     }
 }

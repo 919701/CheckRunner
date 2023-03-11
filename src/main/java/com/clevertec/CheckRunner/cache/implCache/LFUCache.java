@@ -23,7 +23,17 @@ public class LFUCache<K, V> implements Cache<K, V> {
     }
 
     @Override
+    public V get(K key) {
+        return cache.get(key);
+    }
+
+    @Override
+    public void remove(K key) {
+        cache.remove(key);
+    }
+
+    @Override
     public int size() {
-        return 0;
+        return cache.size();
     }
 }
