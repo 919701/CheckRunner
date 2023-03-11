@@ -3,7 +3,7 @@ package com.clevertec.CheckRunner.aop.aspects;
 import com.clevertec.CheckRunner.cache.Cache;
 import com.clevertec.CheckRunner.cache.factoryCache.CacheFactory;
 import com.clevertec.CheckRunner.cache.factoryCache.CacheTypeMethod;
-import com.clevertec.CheckRunner.models.Product;
+import com.clevertec.CheckRunner.model.Product;
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,24 +20,19 @@ public class ProductAspect {
     private final Cache<Long, Optional<Product>> cache = new CacheFactory().getCacheMethod(10, CacheTypeMethod.LRU);
 
 
-//    @Around("execution(* com.clevertec.CheckRunner.services.ProductService.findById(..))")
-//    public Optional<Product> aroundGetProductIdAdvice(ProceedingJoinPoint joinPoint) {
+    @Around("execution(* com.clevertec.CheckRunner.service.ProductService.findById(..))")
+    public Optional<Product> aroundGetProductIdAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
 
-//        var id = (Long) joinPoint.getArgs()[0];
-//        System.out.println("Request id product:" + id);
-//
-//        var cacheProduct =  cache.get(id);
-//        System.out.println("cacheProduct: " + cacheProduct);
-//
-//        if (cache.get(id).isEmpty()) {
-//            try {
-//                var product = (Optional<Product>) joinPoint.proceed();
-//                cache.put(id, product);
-//                return cache.get(id);
-//            } catch (Throwable e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        return cacheProduct;
-//    }
+        var id = (Long) joinPoint.getArgs()[0];
+        var cacheProduct = cache.get(id);
+
+        if (cacheProduct == null) {
+            var product = (Optional<Product>) joinPoint.proceed();
+            cache.put(id, product);
+            return cache.get(id);
+        }
+        return cacheProduct;
+    }
+
+
 }

@@ -25,9 +25,7 @@ public class LRUCache<K, V> implements Cache<K,V> {
     }
 
     public V get(K key) {
-//        if (!cache.containsKey(key)) {
-//            return (V) new NullPointerException();
-//        }
+
         return cache.get(key);
     }
 
@@ -43,4 +41,5 @@ public class LRUCache<K, V> implements Cache<K,V> {
     public String toString() {
         return cache.toString();
     }
+
 }
