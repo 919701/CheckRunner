@@ -4,7 +4,33 @@ import com.clevertec.CheckRunner.cache.Cache;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-
+/**
+ * Least Frequently Used(LFU) cache algorithm uses a counter to keep track of how often an entry is accessed.
+ * With the LFU cache algorithm, the entry with the lowest count is removed first. This method isn’t used that often,
+ * as it does not account for an item that had an initially high access rate and then was not accessed for a long time
+ * <p> The LFU cache provides two methods: put and get.
+ *     put(key, value) - Add the value into cache if it is not already present.
+ *     When the cache reached its capacity, it should invalidate the least frequently used item before
+ *     inserting a new item. If there is a tie (i.e., two or more keys that have the same frequency), the least recently
+ *     used key would be evicted.
+ *     get(key) - If the key doesn’t exist in the cache, return the minimum value of Integer.
+ *     Otherwise, return the value of the key and move this element to the proper position of the cache.
+ * <p> It can be used in the following order using the factory pattern:
+ * <pre>{@code
+ * Class Foo{
+ *      private final Cache<Integer, String> cache =
+ *             new CacheFactory().getCacheMethod(4, CacheTypeMethod.LRU);
+ * }}
+ * , where 4 is the size of the required cache
+ * </pre>
+ *
+ * @param <K> the type of keys maintained by this map
+ * @param <V> the type of mapped values
+ *
+ * @see com.clevertec.CheckRunner.cache.Cache
+ * @see com.clevertec.CheckRunner.cache.factoryCache.CacheFactory
+ * @author Sergey Sergeev
+ */
 public class LFUCache<K, V> implements Cache<K, V> {
     HashMap<K, V> cache;
     HashMap<K, Integer> counts;
