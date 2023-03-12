@@ -1,8 +1,7 @@
 package com.clevertec.CheckRunner;
 
-import com.clevertec.CheckRunner.models.Basket;
-import com.clevertec.CheckRunner.services.BasketService;
-import com.clevertec.CheckRunner.utils.write.BasketWriteFile;
+import com.clevertec.CheckRunner.service.BasketService;
+import com.clevertec.CheckRunner.util.write.BasketWriteFile;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
