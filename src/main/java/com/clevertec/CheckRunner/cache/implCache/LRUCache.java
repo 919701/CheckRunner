@@ -25,13 +25,7 @@ public class LRUCache<K, V> implements Cache<K,V> {
     }
 
     public V get(K key) {
-
         return cache.get(key);
-    }
-
-    @Override
-    public void remove (K key) {
-        cache.remove(key);
     }
 
     public int size() {
@@ -41,5 +35,4 @@ public class LRUCache<K, V> implements Cache<K,V> {
     public String toString() {
         return cache.toString();
     }
-
 }

@@ -6,7 +6,7 @@ import com.clevertec.CheckRunner.cache.factoryCache.CacheTypeMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LRUCacheTest {
 
@@ -20,7 +20,6 @@ class LRUCacheTest {
         cache.put(1, 1);
         cache.put(2, 2);
         cache.put(3, 3);
-
     }
 
     @Test
@@ -39,18 +38,10 @@ class LRUCacheTest {
     }
 
     @Test
-    void checkRemove() {
-
-        cache.remove(2);
-        boolean b = cache.get(2) == null;
-        assertTrue(b);
-    }
-
-    @Test
-    void cacheSize() {
+    void checkCacheSize() {
         cache.put(5, 5);
         cache.put(6, 6);
         cache.put(7, 7);
-        assertEquals(CAPACITY,cache.size());
+        assertEquals(CAPACITY, cache.size());
     }
 }
