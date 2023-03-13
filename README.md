@@ -1,20 +1,19 @@
 # СheckRunner
 
-Консольное приложение, реализующее функционал формирования
-чека в магазине.
-При создании использовалось Java 17 и сборщик проекта gradle 7.5.1
+A console application that implements the functionality of generating a receipt in the store. 
+Java 17 and the gradle 7.5.1 project builder were used
 
-## Запуск
+## Launching
 
-Приложение запускается java RunnerClassName <набор_параметров>, где набор
-параметров в формате itemId-quantity (itemId - идентификатор товара, quantity -
-его количество.
-Например: 
+The application runs java RunnerClassName<parameter_set>, 
+where a set of parameters in the format itemId-quantity (itemId - product identifier, 
+quantity - its quantity. For example:
 ````
 java -jar C:\Clevertec\CheckRunner\build\libs\CheckRunner.jar 1-2 2-3 8-9 4-9 3-6 20-5 card-1234
 ````
-По выполнению команды будет сформирован и выведен в консоль чек содержащий в себе наименование товара с id=1 в
-количестве 2 шт, то же самое с id=2 в количестве 3 штук, id=8 - девяти штук и т.д. 
+Upon execution of the command, a receipt containing the name of the product 
+with id = 1 in the amount of 2 pieces, the same with id = 2 in the amount of 3 pieces, 
+id = 8 - nine pieces, etc. will be generated and displayed in the console.
 ````
                     CASH RECEIPT
                   SUPERMARKET 123
@@ -36,43 +35,41 @@ TAXABLE TOT.                                           93,29
 VAT 5,00 %                                              4,66
 TOTAL                                                  88,63
 ````
-Card-1234 означает, что была предъявлена скидочная карта с номером 1234.
-При придъявлении карты рассчитывается итоговая сумма с учетом скидки (если она есть).
-Среди товаров предусмотрены акционные. Если их в чеке больше пяти, то делается скидка 10% по этой позиции. Данная информация отобразится в чеке.
+Card-1234 means that a discount card with the number 1234 was presented. 
+When the card is presented, the total amount is calculated taking into account the discount (if any).
+Among the products there are promotional ones. 
+If there are more than five of them in the check, then a 10% discount is made on this item.
+This information will be displayed on the receipt.
 ````
 6   Carrot (discount 10%)              $ 3,49      $ 18,85
 ````
-Набор товаров и скидочных карт может задаваться прямо в коде, массивом или
-коллекцией объектов. Их количество и номенклатура имеет тестовый характер,
-поэтому наименование и количество свободные.
+A set of products and discount cards can be specified directly in the code, 
+by an array or by a collection of objects. Their number and nomenclature has a test character, 
+so the name and quantity are free. Exception handling has been 
+implemented (for example, the product with id-20 does not exist, etc.). 
+It is also implemented to save the receipt in a file with the name "CashReceipt.txt" 
+and location in the root folder.
+## Database
 
-Реализована обработка исключений (например, товара с id-20 не
-существует и т. д.).
+The source data is stored in PostgreSQL. Created 2 tables (product and discount_card) 
+- DDL operations are stored in src/main/resources in a file with the .sql extension; 
+- Database connection settings are stored in application.properties.
 
-Также реализовано сохранение чека в файле с наименование "CashReceipt.txt" и расположением в корневой папке.
+## RESTFUL - interface
 
-## База данных
+ #### To receive a receipt 
 
-Исходные данные хранятся в PostgreSQL. Созданы 2 таблицы (product и discount_card) 
-- DDL операции хранятся в src/main/resources в файле с расширением *.sql; 
-- настройки подключения к БД хранятся в application.properties.
-
-## RESTFUL - интерфейс
-
- #### Для получения чека 
-
-В формате text
-
- - с помощью  приложения Postman
+In text format 
+- using the Postman application
 ````
 http://localhost:8080/basket/text?id=1-2,3-5,6-9,6-8&card=1234
 ````
 
-- через консоль
+- via console
 ````
 curl --location --request GET "http://localhost:8080/basket/text?id=1-2,3-5,6-9,6-8&card=1234"
 ````
-Результат
+Result
 ````
                     CASH RECEIPT
                   SUPERMARKET 123
@@ -93,20 +90,19 @@ VAT 5,00 %                                              1,51
 TOTAL                                                  28,72
 ````
 
-#### Для получения чека 
+#### To receive a receipt
 
-В формате json
-
- - c помощью  приложения Postman
+In json format 
+- using the Postman application
 ````
 http://localhost:8080/basket/json?id=1-2,3-5,6-9,6-8&card=1234
 ````
- - через консоль
+- via console
 ````
 curl --location --request GET "http://localhost:8080/basket/json?id=1-1,2-2,3-3&card=1234"
 ````
 
-Результат
+Result
 ````
 {
     "products": {
@@ -123,12 +119,12 @@ curl --location --request GET "http://localhost:8080/basket/json?id=1-1,2-2,3-3&
 }
 ````
 
-#### Получение списка продукци
+#### Get a list of products
 
 ````
 curl --location --request GET "http://localhost:8080/products"
 ````
-Результат
+Result
 
 ```
     [
@@ -158,25 +154,49 @@ curl --location --request GET "http://localhost:8080/products"
     }
 ]
 ```
-### информация по:
-- все дисконтные карты
+### Information on:
+- all discount cards
 ```
 curl --location --request GET 'http://localhost:8080/discountcards'
 ```
 
-- отдельный товар
+- separate product
 ```
 curl --location --request GET "http://localhost:8080/products/2"
 ```
 
-- удалить товар под id=2
+- delete product under id=2
 ```
 curl --location --request DELETE "http://localhost:8080/products/2"
 ```
-- удалить дисконтную карту по её номеру
+- delete the discount card by its number
 ```
 curl --location --request DELETE "http://localhost:8080/discountcards/1234"
 ```
-- добавить товар/дисконтную карту
-- обновить товар/дисконтную карту
-- и т.д
+- add a commodity disc card 
+- - update the commodity discount card 
+- - etc.
+
+## Cache
+
+cache is a hardware or software component that stores data so that future requests 
+for that data can be served faster.
+A cache eviction algorithm is a way of deciding which element to evict when the cache is full. To gain optimized benefits there are many algorithms for different use cases.
+
+    Least Recently Used (LRU)
+    Least Frequently Used (LFU)
+    First In First Out (FIFO)
+    Last In First Out (LIFO) etc.
+
+This cache implements only the first two methods so far, but if you want, 
+you can implement the rest of the subsequent ones.
+
+A program based on the Cache interface uses a factory method to solve the problem of creating a cache 
+without having to specify the exact class of the object to be created. 
+
+This is done by creating objects by calling the CacheFactory factory method in the 
+Cache base interface and specifying the implementation type of the caching method (LRU,LFU).
+```
+private final Cache<Long, Optional<Product>> cache =
+            new CacheFactory().getCacheMethod(CAPACITY, CacheTypeMethod.LRU);
+```
