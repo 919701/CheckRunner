@@ -1,6 +1,7 @@
 package com.clevertec.CheckRunner.cache.implCache;
 
 import com.clevertec.CheckRunner.cache.Cache;
+import com.clevertec.CheckRunner.cache.factoryCache.CacheFactory;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -27,8 +28,8 @@ import java.util.LinkedHashSet;
  * @param <K> the type of keys maintained by this map
  * @param <V> the type of mapped values
  *
- * @see com.clevertec.CheckRunner.cache.Cache
- * @see com.clevertec.CheckRunner.cache.factoryCache.CacheFactory
+ * @see Cache
+ * @see CacheFactory
  * @author Sergey Sergeev
  */
 public class LFUCache<K, V> implements Cache<K, V> {
