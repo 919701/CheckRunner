@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LRUCacheTest {
 
@@ -43,5 +44,10 @@ class LRUCacheTest {
         cache.put(6, 6);
         cache.put(7, 7);
         assertEquals(CAPACITY, cache.size());
+    }
+
+    @Test
+    void checkRemoveShouldTrue() {
+        assertTrue(cache.remove(2));
     }
 }

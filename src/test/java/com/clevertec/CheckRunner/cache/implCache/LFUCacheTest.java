@@ -43,4 +43,9 @@ class LFUCacheTest {
         cache.put(7, 7);
         assertEquals(CAPACITY, cache.size());
     }
+
+    @Test
+    void checkRemoveShouldTrue() {
+        assertTrue(cache.remove(2));
+    }
 }

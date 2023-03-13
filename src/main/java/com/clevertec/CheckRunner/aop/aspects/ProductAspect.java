@@ -46,11 +46,21 @@ public class ProductAspect {
     }
 
     @Around("execution(* com.clevertec.CheckRunner.service.ProductService.saveProduct(..))")
-    public void aroundSaveProductById(ProceedingJoinPoint joinPoint) throws Throwable {
+    public boolean aroundSaveProductById(ProceedingJoinPoint joinPoint) throws Throwable {
 
         var product = (Product) joinPoint.getArgs()[0];
         joinPoint.proceed();
         cache.put(product.getId(), Optional.of(product));
+        return true;
     }
 
+    public boolean aroundUpdateProduct(ProceedingJoinPoint joinPoint) {
+        var product = (Product) joinPoint.getArgs()[0];
+        var id = (Long) product.getId();
+        if (cache.get(id) != null) {
+            cache.put(id,Optional.of(product));
+            return true;
+        }
+        return true;
+    }
 }
