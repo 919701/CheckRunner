@@ -23,14 +23,14 @@ class LRUCacheTest {
     }
 
     @Test
-    void checkPut() {
+    void checkPutShouldAdd4() {
 
         cache.put(4, 4);
         assertEquals(4, cache.get(4));
     }
 
     @Test
-    void checkGet() {
+    void checkGetShould6AfterAdd2Element() {
 
         cache.put(5, 5);
         cache.put(6, 6);
@@ -38,7 +38,7 @@ class LRUCacheTest {
     }
 
     @Test
-    void checkCacheSize() {
+    void checkCacheSizeShouldCAPACITY() {
         cache.put(5, 5);
         cache.put(6, 6);
         cache.put(7, 7);
