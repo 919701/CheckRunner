@@ -54,6 +54,4 @@ public class DiscountCardAspect {
         }
         return cacheDiscountCard;
     }
-
-
 }
