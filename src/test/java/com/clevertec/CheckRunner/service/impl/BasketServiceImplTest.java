@@ -87,7 +87,7 @@ class BasketServiceImplTest {
     }
 
     @Test
-    void coastProducts() {
+    void checkCoastProductsShouldUsedFindById() {
 
         String[] args = {"1-2", "card-123"};
 
