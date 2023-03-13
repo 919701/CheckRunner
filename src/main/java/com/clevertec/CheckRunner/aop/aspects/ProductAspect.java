@@ -16,9 +16,9 @@ import java.util.Optional;
 @Aspect
 @AllArgsConstructor
 public class ProductAspect {
-
+    private final int CAPACITY = 5;
     private final Cache<Long, Optional<Product>> cache =
-            new CacheFactory().getCacheMethod(5, CacheTypeMethod.LRU);
+            new CacheFactory().getCacheMethod(CAPACITY, CacheTypeMethod.LRU);
 
     @Around("execution(* com.clevertec.CheckRunner.service.ProductService.findById(..))")
     public Optional<Product> aroundGetProductIdAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -54,6 +54,7 @@ public class ProductAspect {
         return true;
     }
 
+    @Around("execution(* com.clevertec.CheckRunner.service.ProductService.updateProduct(..))")
     public boolean aroundUpdateProduct(ProceedingJoinPoint joinPoint) {
         var product = (Product) joinPoint.getArgs()[0];
         var id = (Long) product.getId();

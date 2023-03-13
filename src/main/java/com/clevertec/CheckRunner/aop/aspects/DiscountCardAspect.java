@@ -54,4 +54,26 @@ public class DiscountCardAspect {
         }
         return cacheDiscountCard;
     }
+
+    @Around("execution(* com.clevertec.CheckRunner.service.DiscountCardService.saveDiscountCard(..))")
+    public Boolean aroundSaveDiscountCard(ProceedingJoinPoint joinPoint) throws Throwable {
+        joinPoint.proceed();
+        var card = (DiscountCard) joinPoint.getArgs()[0];
+        if (cache.get(card.getNumberCard()) == null) {
+            cache.put(card.getNumberCard(),card);
+            return true;
+        }
+        return true;
+    }
+
+    @Around("execution(* com.clevertec.CheckRunner.service.DiscountCardService.deleteDiscountCardByNumber(..))")
+    public Boolean aroundDeleteDiscountCard(ProceedingJoinPoint joinPoint) throws Throwable {
+        var card = (DiscountCard) joinPoint.getArgs()[0];
+        if (cache.get(card.getNumberCard()) != null) {
+            cache.remove(card.getNumberCard());
+            return true;
+        }
+        joinPoint.proceed();
+        return true;
+    }
 }
