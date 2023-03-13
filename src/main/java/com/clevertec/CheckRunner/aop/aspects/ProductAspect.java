@@ -34,5 +34,14 @@ public class ProductAspect {
         return cacheProduct;
     }
 
-
+    @Around("execution(* com.clevertec.CheckRunner.service.ProductService.deleteProduct(..))")
+    public Boolean aroundDeleteProductById(ProceedingJoinPoint joinPoint) throws Throwable {
+        var id = (Long) joinPoint.getArgs()[0];
+        System.out.println("aroundDeleteProductById "+id);
+        var b = (boolean) joinPoint.proceed();
+        if (cache.get(id) != null) {
+             return cache.remove(id);
+        }
+        return true;
+    }
 }

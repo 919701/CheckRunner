@@ -49,6 +49,15 @@ public class LRUCache<K, V> implements Cache<K,V> {
         return cache.get(key);
     }
 
+    @Override
+    public Boolean remove(K key) {
+        if (cache.containsKey(key)) {
+            cache.remove(key);
+            return true;
+        }
+        return false;
+    }
+
     public int size() {
         return cache.size();
     }

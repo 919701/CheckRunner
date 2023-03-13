@@ -88,6 +88,18 @@ public class LFUCache<K, V> implements Cache<K, V> {
         return cache.get(key);
     }
 
+    @Override
+    public Boolean remove(K key) {
+        if (cache.containsKey(key)) {
+            int c = counts.get(key);
+            lists.get(c).remove(key);
+            counts.remove(c);
+            cache.remove(key);
+            return true;
+        }
+        return false;
+    }
+
     public int size() {
         return cache.size();
     }

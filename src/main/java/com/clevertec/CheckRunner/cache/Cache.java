@@ -31,6 +31,8 @@ public interface Cache<K, V> {
      */
     V get(K key);
 
+    Boolean remove(K key);
+
     /**
      * You can use this method to get the size of the cache that you are using
      * @return
